@@ -11,7 +11,24 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      children: [
+        {
+          path: '/profile',
+          name: 'profile',
+          component: () => import('./views/profile/index.vue')
+        },
+        {
+          path: '/dashboard',
+          name: 'dashboard',
+          component: () => import('./views/dashboard/index.vue')
+        }
+      ]
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('./views/login/index.vue')
     },
     {
       path: '/about',

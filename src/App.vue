@@ -1,29 +1,26 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
     <router-view/>
   </div>
 </template>
+<script>
+import { mapState, mapMutations } from 'vuex'
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+export default {
+  computed: mapState({
+    count: state => state.a.count
+  }),
+  mounted () {
+    // this.$store.dispatch(ADD);
+    console.log(this.$store)
+  },
+  methods: {
+    ...mapMutations({
+      add: 'ADD' // 将 `this.add()` 映射为 `this.$store.commit('increment')`
+    })
   }
 }
+</script>
+
+<style lang="scss">
 </style>
