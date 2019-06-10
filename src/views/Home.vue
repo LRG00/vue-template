@@ -1,6 +1,49 @@
 <template>
   <div class="layout">
-    <Layout>
+    <el-container>
+      <el-header style="text-align: right;">
+        <el-dropdown>
+          <i class="el-icon-setting" style="margin-right: 15px"></i>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>查看</el-dropdown-item>
+            <el-dropdown-item>新增</el-dropdown-item>
+            <el-dropdown-item>删除</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+        <span>王小虎</span>
+      </el-header>
+      <el-container>
+        <el-aside width="220px">
+          <el-menu text-color="#fff" active-text-color="red" background-color="#545c64" :default-openeds="['1', '3']">
+            <el-submenu index="1">
+              <template slot="title"><i class="el-icon-message"></i>文档管理</template>
+                <el-menu-item index="1-1">选项1</el-menu-item>
+                <el-menu-item index="1-2">选项2</el-menu-item>
+                <el-menu-item index="1-3">选项3</el-menu-item>
+              <el-submenu index="1-4">
+                <template slot="title">选项4</template>
+                <el-menu-item index="1-4-1">选项4-1</el-menu-item>
+              </el-submenu>
+            </el-submenu>
+            <el-submenu index="2">
+              <template slot="title"><i class="el-icon-menu"></i>文档管理</template>
+                <el-menu-item index="2-1">选项1</el-menu-item>
+                <el-menu-item index="2-2">选项2</el-menu-item>
+                <el-menu-item index="2-3">选项3</el-menu-item>
+            </el-submenu>
+            <el-submenu index="3">
+              <template slot="title"><i class="el-icon-setting"></i>项目管理</template>
+                <el-menu-item index="3-1">选项1</el-menu-item>
+                <el-menu-item index="3-2">选项2</el-menu-item>
+                <el-menu-item index="3-3">选项3</el-menu-item>
+            </el-submenu>
+            <el-menu-item index="4"><i class="el-icon-setting"></i>档案管理</el-menu-item>
+          </el-menu>
+        </el-aside>
+        <el-main>Main</el-main>
+      </el-container>
+    </el-container>
+    <!-- <Layout>
       <Header>
         <div>
           <div class="layout-logo"></div>
@@ -29,7 +72,7 @@
           </Content>
         </Layout>
       </Layout>
-    </Layout>
+    </Layout> -->
   </div>
 </template>
 <script>
@@ -42,63 +85,28 @@ export default {
 @import '../assets/scss/mixin';
 .layout{
   height: 100vh;
-  .ivu-layout {
+  .el-container {
     height: 100%;
   }
-  .ivu-menu {
-    height: 100%;
-    background: #F6F7F8;
-    &-item-active {
-      background: rgba(0,0,0,0.05) !important;
-      color: #000 !important;
-      font-weight: 500 !important;
-      &::after {
-        width: 0 !important;
-      }
-      &::before {
-        content: '';
-        display: block;
-        width: 4px;
-        height: 30px;
-        position: absolute;
-        margin-top: 10px;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        background: $blue;
-      }
-    }
+  .el-header, .el-footer {
+    background-color: #B3C0D1;
+    color: #333;
+    text-align: center;
+    line-height: 60px;
   }
-  .ivu-layout-header {
-    background-color: $blue;
-    height: 64px;
-    padding: 0;
-    ul {
-      float: right;
-      height: 64px;
-      color: #fff;
-      li {
-        float: left;
-        margin-right: 22px;
-        font-size: 13px;
-        .user_name {
-          font-size: 13px;
-        }
-      }
-    }
-    .layout-logo{
-      @include wh(100px, 30px);
-      background: $gc;
-      border-radius: 3px;
-      float: left;
-      position: relative;
-      top: 15px;
-      left: 20px;
-    }
+  
+  .el-aside {
+    background-color: #D3DCE6;
   }
-  .content_main {
-    // background: #FBFBFB;
-    height: 600px; //dddddd
+  
+  .el-main {
+    background-color: #E9EEF3;
+    color: #333;
+    text-align: center;
+    line-height: 160px;
+  }
+  .is-active {
+    background: #BBFFFF !important;
   }
 }
 </style>
