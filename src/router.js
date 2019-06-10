@@ -19,6 +19,21 @@ export default new Router({
           component: () => import('./views/profile/index.vue')
         },
         {
+          path: '/item1',
+          name: 'item1',
+          component: () => import('./views/item1.vue')
+        },
+        {
+          path: '/item2',
+          name: 'item2',
+          component: () => import('./views/item2.vue')
+        },
+        {
+          path: '/item3',
+          name: 'item3',
+          component: () => import('./views/item3.vue')
+        },
+        {
           path: '/dashboard',
           name: 'dashboard',
           component: () => import('./views/dashboard/index.vue')
