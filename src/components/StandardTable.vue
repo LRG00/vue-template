@@ -21,7 +21,7 @@ export default {
     pagination: {}
   },
   mounted () {
-    console.log(this.data1,'ooo')
+    console.log(this.data1, 'ooo')
   },
   updated () {
     // console.log('ziziizi', this.data, this.pagination)

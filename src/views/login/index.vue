@@ -98,7 +98,7 @@ export default {
   },
   mounted () {
     // console.log('fff')
-    setTimeout(()=> {
+    setTimeout(() => {
       console.log('fff')
       this.data1 = {
         yi: 1,
@@ -131,17 +131,16 @@ export default {
           date: '2016-10-04'
         }
       ]
-
-    },2000);
+    }, 2000)
   },
   methods: {
     addrow () {
       this.data.push({
-          name: 'John Brown',
-          age: 18888,
-          address: 'New York No. 1 Lake Park',
-          date: '2016-10-03'
-        })
+        name: 'John Brown',
+        age: 18888,
+        address: 'New York No. 1 Lake Park',
+        date: '2016-10-03'
+      })
     },
     onChangePagination ({ page, size }) {
       console.log(page, size, 'kkk')

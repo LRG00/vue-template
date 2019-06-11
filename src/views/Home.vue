@@ -100,11 +100,11 @@ export default {
     background-color: #B3C0D1;
     line-height: 60px;
   }
-  
+
   .el-aside {
     background-color: #D3DCE6;
   }
-  
+
   .el-main {
     background-color: #E9EEF3;
     padding: 10px 20px 20px 20px;

@@ -41,8 +41,8 @@ export default {
       modalVisible: false
     }
   },
-    mounted () {
-    setTimeout('console.log("chanchancahn")',2000);
+  mounted () {
+    setTimeout('console.log("chanchancahn")', 2000)
   },
   methods: {
     handleSubmit () {
