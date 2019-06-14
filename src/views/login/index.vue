@@ -51,6 +51,7 @@
 <script>
 import ChangePwModal from '@/components/ChangePwModal'
 import StandardTable from '@/components/StandardTable'
+import {getRoleList} from '@/api/role'
 export default {
   components: {
     ChangePwModal,
@@ -97,41 +98,9 @@ export default {
     }
   },
   mounted () {
-    // console.log('fff')
-    setTimeout(() => {
-      console.log('fff')
-      this.data1 = {
-        yi: 1,
-        er: 2,
-        san: 3
-      }
-      this.data = [
-        {
-          name: 'John Brown',
-          age: 18,
-          address: 'New York No. 1 Lake Park',
-          date: '2016-10-03'
-        },
-        {
-          name: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park',
-          date: '2016-10-01'
-        },
-        {
-          name: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park',
-          date: '2016-10-02'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park',
-          date: '2016-10-04'
-        }
-      ]
-    }, 2000)
+    getRoleList().then(res=>{
+      console.log(res, 'sad')
+    })
   },
   methods: {
     addrow () {

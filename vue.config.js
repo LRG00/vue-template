@@ -69,7 +69,18 @@ module.exports = {
     https: false,
     hotOnly: false,
     // 查阅 https://github.com/vuejs/vue-docs-zh-cn/blob/master/vue-cli/cli-service.md#配置代理
-    proxy: null, // string | Object
+    proxy: {
+      // 设置代理
+      api: {
+        target: 'http://localhost:3000', // 本地地址
+        // target: "http://xinhua.xinqixinxikeji.com:8080", //线上地址
+        // target: "http://152.12.12.171:8080", //新华
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/'
+        }
+      }
+    },
     before: app => {}
   },
 
