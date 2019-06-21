@@ -13,7 +13,7 @@
         <span>王小虎</span>
       </el-header>
       <el-container>
-        <el-aside width="220px">
+        <el-aside class="aside-wrap" width="220px">
           <el-menu text-color="#fff" active-text-color="red" background-color="#545c64">
             <el-submenu index="1">
               <template slot="title"><i class="el-icon-message"></i>文章管理</template>
@@ -118,7 +118,7 @@ export default {
     background-color: #E9EEF3;
     padding: 10px 20px 20px 20px;
   }
-  .is-active {
+  .aside-wrap .is-active {
     background: #BBFFFF !important;
   }
   .el-breadcrumb {
