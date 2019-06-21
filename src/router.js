@@ -22,24 +22,94 @@ const vueRouter = new Router({
           component: () => import('./views/profile/index.vue')
         },
         {
-          path: '/item1',
-          name: 'item1',
-          component: () => import('./views/item1.vue')
+          path: '/post',
+          name: 'post',
+          component: () => import('./views/post/index.vue'),
+          children: [
+            {
+              path: '/post/create',
+              name: '/post/create',
+              component: () => import('./views/post/create.vue')
+            },
+            {
+              path: '/post/list',
+              name: '/post/list',
+              component: () => import('./views/post/list.vue')
+            }
+          ]
         },
         {
-          path: '/item2',
-          name: 'item2',
-          component: () => import('./views/item2.vue')
+          path: '/cate',
+          name: 'cate',
+          component: () => import('./views/cate/index.vue'),
+          children: [
+            {
+              path: '/cate/create',
+              name: '/cate/create',
+              component: () => import('./views/cate/create.vue')
+            },
+            {
+              path: '/cate/list',
+              name: '/cate/list',
+              component: () => import('./views/cate/list.vue')
+            }
+          ]
         },
         {
-          path: '/item3',
-          name: 'item3',
-          component: () => import('./views/item3.vue')
+          path: '/tag',
+          name: 'tag',
+          component: () => import('./views/tag/index.vue'),
+          children: [
+            {
+              path: '/tag/create',
+              name: '/tag/create',
+              component: () => import('./views/tag/create.vue')
+            },
+            {
+              path: '/tag/list',
+              name: '/tag/list',
+              component: () => import('./views/tag/list.vue')
+            }
+          ]
         },
         {
-          path: '/dashboard',
-          name: 'dashboard',
-          component: () => import('./views/dashboard/index.vue')
+          path: '/users',
+          name: 'users',
+          component: () => import('./views/users/index.vue'),
+          children: [
+            {
+              path: '/users/create',
+              name: '/users/create',
+              component: () => import('./views/users/create.vue')
+            },
+            {
+              path: '/users/pwd',
+              name: '/users/pwd',
+              component: () => import('./views/users/pwd.vue')
+            },
+            {
+              path: '/users/list',
+              name: '/users/list',
+              component: () => import('./views/users/list.vue')
+            }
+          ]
+        },
+        {
+          path: '/setting',
+          name: 'setting',
+          component: () => import('./views/setting/index.vue'),
+          children: [
+            {
+              path: '/setting/base',
+              name: '/setting/base',
+              component: () => import('./views/setting/base.vue')
+            },
+            {
+              path: '/setting/navigation',
+              name: '/setting/navigation',
+              component: () => import('./views/setting/navigation.vue')
+            }
+          ]
         }
       ]
     },

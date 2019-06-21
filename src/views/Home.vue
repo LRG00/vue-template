@@ -14,30 +14,34 @@
       </el-header>
       <el-container>
         <el-aside width="220px">
-          <el-menu text-color="#fff" active-text-color="red" background-color="#545c64" :default-openeds="['1', '3']">
+          <el-menu text-color="#fff" active-text-color="red" background-color="#545c64">
             <el-submenu index="1">
-              <template slot="title"><i class="el-icon-message"></i>文档管理</template>
-                <el-menu-item index="1-1" @click="$router.push({ name: 'item1' })">选项1</el-menu-item>
-                <el-menu-item index="1-2">选项2</el-menu-item>
-                <el-menu-item index="1-3">选项3</el-menu-item>
-              <el-submenu index="1-4">
-                <template slot="title">选项4</template>
-                <el-menu-item index="1-4-1">选项4-1</el-menu-item>
-              </el-submenu>
+              <template slot="title"><i class="el-icon-message"></i>文章管理</template>
+                <el-menu-item index="1-1" @click="$router.push({ name: '/post/list' })">文章列表</el-menu-item>
+                <el-menu-item index="1-2" @click="$router.push({ name: '/post/create' })">添加文章</el-menu-item>
             </el-submenu>
             <el-submenu index="2">
-              <template slot="title"><i class="el-icon-menu"></i>文档管理</template>
-                <el-menu-item index="2-1" @click="$router.push({ name: 'item2' })">选项1</el-menu-item>
-                <el-menu-item index="2-2">选项2</el-menu-item>
-                <el-menu-item index="2-3">选项3</el-menu-item>
+              <template slot="title"><i class="el-icon-menu"></i>分类管理</template>
+                <el-menu-item index="2-1" @click="$router.push({ name: '/cate/list' })">分类列表</el-menu-item>
+                <el-menu-item index="2-2" @click="$router.push({ name: '/cate/create' })">添加分类</el-menu-item>
             </el-submenu>
             <el-submenu index="3">
-              <template slot="title"><i class="el-icon-setting"></i>项目管理</template>
-                <el-menu-item index="3-1" @click="$router.push({ name: 'item3' })">选项1</el-menu-item>
-                <el-menu-item index="3-2">选项2</el-menu-item>
-                <el-menu-item index="3-3">选项3</el-menu-item>
+              <template slot="title"><i class="el-icon-setting"></i>标签管理</template>
+                <el-menu-item index="3-1" @click="$router.push({ name: '/tag/list' })">标签列表</el-menu-item>
+                <el-menu-item index="3-2" @click="$router.push({ name: '/tag/create' })">添加标签</el-menu-item>
             </el-submenu>
-            <el-menu-item index="profile" @click="$router.push({ name: 'profile' })"><i class="el-icon-setting"></i>个人管理</el-menu-item>
+            <el-submenu index="4">
+              <template slot="title"><i class="el-icon-setting"></i>用户管理</template>
+                <el-menu-item index="4-1" @click="$router.push({ name: '/users/list' })">用户列表</el-menu-item>
+                <el-menu-item index="4-2" @click="$router.push({ name: '/users/create' })">添加用户</el-menu-item>
+                <el-menu-item index="4-3" @click="$router.push({ name: '/users/pwd' })">修改密码</el-menu-item>
+            </el-submenu>
+            <el-submenu index="5">
+              <template slot="title"><i class="el-icon-setting"></i>通用设置</template>
+                <el-menu-item index="5-1" @click="$router.push({ name: '/setting/base' })">基础设置</el-menu-item>
+                <el-menu-item index="5-2" @click="$router.push({ name: '/setting/navigation' })">菜单设置</el-menu-item>
+            </el-submenu>
+            <el-menu-item index="profile" @click="$router.push({ name: 'profile' })"><i class="el-icon-setting"></i>个人中心</el-menu-item>
           </el-menu>
         </el-aside>
         <el-main>

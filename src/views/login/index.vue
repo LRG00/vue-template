@@ -17,10 +17,10 @@
           <span class="title">欢迎登录</span>
         </FormItem>
         <FormItem prop="mail">
-          <Input prefix="ios-contact" type="text" v-model="formData.gender" placeholder="邮箱" />
+          <Input prefix="ios-contact" type="text" v-model="formData.user_name" placeholder="邮箱" />
         </FormItem>
         <FormItem prop="password">
-          <Input prefix="ios-lock-outline"  type="password" v-model="formData.name" placeholder="密码" />
+          <Input prefix="ios-lock-outline"  type="password" v-model="formData.user_password" placeholder="密码" />
         </FormItem>
         <FormItem>
             <span class="forget" @click="handleForget(true)">忘记密码</span>
@@ -51,7 +51,7 @@
 <script>
 import ChangePwModal from '@/components/ChangePwModal'
 import StandardTable from '@/components/StandardTable'
-import { getRoleList } from '@/api/role'
+import { signIn } from '@/api/login'
 export default {
   components: {
     ChangePwModal,
@@ -61,15 +61,15 @@ export default {
     return {
       forget: false,
       formData: {
-        gender: 'M',
-        name: 'xiaoming'
+        user_name: '张一',
+        user_password: 'zhangyi'
       },
       rules: {
-        mail: [
-          { required: false, message: '请输入邮箱', trigger: 'blur' }
+        user_name: [
+          { required: true, message: '请输入用户名', trigger: 'blur' }
         ],
-        password: [
-          { required: false, message: '请输入密码', trigger: 'blur' },
+        user_password: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
           { type: 'string', min: 6, message: '密码长度不少于6位', trigger: 'blur' }
         ]
       },
@@ -98,7 +98,7 @@ export default {
     }
   },
   mounted () {
-    // getRoleList({gender: 'M', name: 'xiaoming'}).then(res=>{
+    // signIn({gender: 'M', name: 'xiaoming'}).then(res=>{
     //   console.log(res, 'sad')
     // })
   },
@@ -117,7 +117,7 @@ export default {
     handleSubmit (name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
-          getRoleList(this.formData).then(res => {
+          signIn(this.formData).then(res => {
             if (res.code === '000001') {
               localStorage.setItem('token', res.data)
               localStorage.setItem('token_exp', new Date().getTime())
