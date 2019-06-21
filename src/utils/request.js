@@ -27,7 +27,6 @@ class Axios {
     // http response 拦截器
     this.instance.interceptors.response.use(
       response => {
-        console.log(response, 'ppppppppppppppppppppppppppp')
         if (response.data.status === '401') {
           router.replace({
             path: '/login'
@@ -37,7 +36,6 @@ class Axios {
         return response.data
       },
       error => {
-        console.log(error.response, 'errorerrorerror')
         if (error.response) {
           const { status } = error.response
           if (status === 401) {
@@ -51,7 +49,6 @@ class Axios {
     )
   }
 }
-console.log(APILIST.api, 'jjjjjjj')
 export const apiAxios = new Axios(APILIST.api).instance
 export default {
   Axios,

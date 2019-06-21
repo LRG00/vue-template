@@ -39,7 +39,6 @@ for (const key in APIRoot) {
         : APIRoot[key]
   }
 }
-console.log(process.env)
 
 module.exports = {
   APILIST: apilist,

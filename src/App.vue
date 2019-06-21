@@ -12,7 +12,7 @@ export default {
   }),
   mounted () {
     // this.$store.dispatch(ADD);
-    console.log(this.$store)
+    // console.log(this.$store)
   },
   methods: {
     ...mapMutations({

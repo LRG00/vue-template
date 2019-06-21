@@ -14,7 +14,7 @@ Vue.config.productionTip = false
 Vue.use(iView)
 Vue.use(ElementUI)
 
-console.log(process.env.NODE_ENV)
+// console.log(process.env.NODE_ENV)
 new Vue({
   router,
   store,
