@@ -12,6 +12,9 @@ const vueRouter = new Router({
       path: '/',
       name: 'home',
       component: Home,
+      meta: {
+        requireAuth: true
+      },
       children: [
         {
           path: '/profile',
@@ -56,23 +59,18 @@ const vueRouter = new Router({
   ]
 })
 vueRouter.beforeEach(function (to, from, next) {
-  console.log(to, from, next)
-  // const nextRoute = [ 'account', 'order', 'course']
-  // const auth = store.state.auth
-  // // 跳转至上述3个页面
-  // if (nextRoute.indexOf(to.name) >= 0) {
-  //   // 未登录
-  //   if (!store.state.auth.IsLogin) {
-  //     vueRouter.push({ name: 'login' })
-  //   }
-  // }
-  // 已登录的情况再去登录页，跳转至首页
-  if (to.name === 'login') {
-    // if (auth.IsLogin) {
-    //   vueRouter.push({ name: 'home' })
-    // }
+  if (to.matched.some(r => r.meta.requireAuth)) {
+    if (window.localStorage.getItem('token')) {
+      next()
+    } else {
+      next({
+        path: '/login',
+        query: { redirect: to.fullPath }
+      })
+    }
+  } else {
+    next()
   }
-  next()
 })
 
 export default vueRouter

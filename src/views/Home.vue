@@ -84,8 +84,13 @@
   </div>
 </template>
 <script>
+import { xxx } from '@/api/role'
 export default {
-
+  mounted () {
+    xxx().then(res => {
+      console.log(res, 'index')
+    })
+  }
 }
 </script>
 

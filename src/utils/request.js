@@ -1,61 +1,59 @@
-import axios from "axios";
-import { APILIST } from "./config";
-import router from "../router";
-// import { message } from "ant-design-vue";
+import axios from 'axios'
+import { APILIST } from './config'
+import router from '../router'
+import { message } from 'element-ui'
 
 // axios 配置
-axios.defaults.timeout = 5000;
-axios.defaults.withCredentials = true;
+axios.defaults.timeout = 5000
+axios.defaults.withCredentials = true
 
 class Axios {
-  constructor(baseUrl) {
-    this.instance = null;
-    this.init(baseUrl);
+  constructor (baseUrl) {
+    this.instance = null
+    this.init(baseUrl)
   }
 
-  init(baseUrl) {
+  init (baseUrl) {
     this.instance = axios.create({
       baseURL: baseUrl
-    });
+    })
     // http request 拦截器
-    this.instance.interceptors.request.use(
-      config => {
-        if (window.localStorage.getItem("token") !== "") {
-          config.headers.Authorization = window.localStorage.getItem("token");
-        }
-        return config;
-      },
-      err => {
-        return Promise.reject(err);
-      }
-    );
+    this.instance.interceptors.request.use(config => {
+      const token = localStorage.getItem('token')
+      config.headers.common['Authorization'] = 'Bearer ' + token
+      return config
+    })
 
     // http response 拦截器
     this.instance.interceptors.response.use(
       response => {
-        if (response.data.status === "406") {
+        console.log(response, 'ppppppppppppppppppppppppppp')
+        if (response.data.status === '401') {
           router.replace({
-            path: "/login"
-          });
-          // return message.error(response.data.msg);
+            path: '/login'
+          })
+          return message.error(response.data.msg)
         }
-        return response.data;
+        return response.data
       },
       error => {
+        console.log(error.response, 'errorerrorerror')
         if (error.response) {
-          const { status } = error.response;
-          if (status === 406) {
-            console.log("xxxxx406");
-            return error;
+          const { status } = error.response
+          if (status === 401) {
+            router.replace({
+              path: '/login'
+            })
+            return error
           }
         }
       }
-    );
+    )
   }
 }
-console.log(APILIST.api, "jjjjjjj");
-export const apiAxios = new Axios(APILIST.api).instance;
+console.log(APILIST.api, 'jjjjjjj')
+export const apiAxios = new Axios(APILIST.api).instance
 export default {
   Axios,
   apiAxios
-};
+}

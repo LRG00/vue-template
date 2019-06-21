@@ -17,10 +17,10 @@
           <span class="title">欢迎登录</span>
         </FormItem>
         <FormItem prop="mail">
-          <Input prefix="ios-contact" type="text" v-model="formData.mail" placeholder="邮箱" />
+          <Input prefix="ios-contact" type="text" v-model="formData.gender" placeholder="邮箱" />
         </FormItem>
         <FormItem prop="password">
-          <Input prefix="ios-lock-outline"  type="password" v-model="formData.password" placeholder="密码" />
+          <Input prefix="ios-lock-outline"  type="password" v-model="formData.name" placeholder="密码" />
         </FormItem>
         <FormItem>
             <span class="forget" @click="handleForget(true)">忘记密码</span>
@@ -51,7 +51,7 @@
 <script>
 import ChangePwModal from '@/components/ChangePwModal'
 import StandardTable from '@/components/StandardTable'
-import {getRoleList} from '@/api/role'
+import { getRoleList } from '@/api/role'
 export default {
   components: {
     ChangePwModal,
@@ -61,15 +61,15 @@ export default {
     return {
       forget: false,
       formData: {
-        mail: '',
-        password: ''
+        gender: 'M',
+        name: 'xiaoming'
       },
       rules: {
         mail: [
-          { required: true, message: '请输入邮箱', trigger: 'blur' }
+          { required: false, message: '请输入邮箱', trigger: 'blur' }
         ],
         password: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
+          { required: false, message: '请输入密码', trigger: 'blur' },
           { type: 'string', min: 6, message: '密码长度不少于6位', trigger: 'blur' }
         ]
       },
@@ -98,9 +98,9 @@ export default {
     }
   },
   mounted () {
-    getRoleList().then(res=>{
-      console.log(res, 'sad')
-    })
+    // getRoleList({gender: 'M', name: 'xiaoming'}).then(res=>{
+    //   console.log(res, 'sad')
+    // })
   },
   methods: {
     addrow () {
@@ -117,10 +117,15 @@ export default {
     handleSubmit (name) {
       this.$refs[name].validate((valid) => {
         if (valid) {
-          setTimeout(() => {
-            this.$router.push('/')
-          }, 2000)
-          this.$Message.success('登陆成功，两秒后返回首页!')
+          getRoleList(this.formData).then(res => {
+            if (res.code === '000001') {
+              localStorage.setItem('token', res.data)
+              localStorage.setItem('token_exp', new Date().getTime())
+              this.$router.push('/')
+            } else {
+              alert(res.msg)
+            }
+          })
         } else {
           this.$Message.error('请填写完整!')
         }
