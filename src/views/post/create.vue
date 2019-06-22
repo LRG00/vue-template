@@ -1,23 +1,40 @@
 <template>
   <el-card>
-    <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-      <el-form-item label="标题" prop="name">
-        <el-input v-model="ruleForm.name"></el-input>
+    <el-form :model="ruleForm"  ref="ruleForm" label-width="100px" class="demo-ruleForm">
+      <el-form-item label="标题" prop="article_title">
+        <el-input v-model="ruleForm.article_title"></el-input>
       </el-form-item>
-      <el-form-item label="作者" prop="name">
-        <el-input v-model="ruleForm.name"></el-input>
+      <el-form-item label="作者" prop="user_id">
+        <el-input v-model="ruleForm.user_id"></el-input>
       </el-form-item>
-      <el-form-item label="分类" prop="region">
-        <el-select v-model="ruleForm.region" placeholder="请选择分类">
+      <el-form-item label="浏览量" prop="article_views">
+        <el-input v-model="ruleForm.article_views"></el-input>
+      </el-form-item>
+      <el-form-item label="喜欢" prop="article_like_count">
+        <el-input v-model="ruleForm.article_like_count"></el-input>
+      </el-form-item>
+      <el-form-item label="评论总数" prop="article_comment_count">
+        <el-input v-model="ruleForm.article_comment_count"></el-input>
+      </el-form-item>
+      <el-form-item label="日期" prop="article_date">
+        <el-date-picker
+          v-model="ruleForm.article_date"
+          type="date"
+          value-format="yyyy-MM-dd"
+          placeholder="选择日期">
+        </el-date-picker>
+      </el-form-item>
+      <!-- <el-form-item label="分类" prop="sort_id">
+        <el-select v-model="ruleForm.sort_id" placeholder="请选择分类">
           <el-option label="区域一" value="shanghai"></el-option>
           <el-option label="区域二" value="beijing"></el-option>
         </el-select>
-      </el-form-item>
-      <el-form-item label="描述" prop="desc">
+      </el-form-item> -->
+      <!-- <el-form-item label="描述" prop="desc">
         <el-input type="textarea" v-model="ruleForm.desc"></el-input>
-      </el-form-item>
-      <el-form-item label="正文" prop="desc">
-        <el-input type="textarea" v-model="ruleForm.desc"></el-input>
+      </el-form-item> -->
+      <el-form-item label="正文" prop="article_content">
+        <el-input type="textarea" v-model="ruleForm.article_content"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">发布文章</el-button>
@@ -28,18 +45,19 @@
 </template>
 
 <script>
+import { addArticle } from '@/api/post'
 export default {
   data () {
     return {
       ruleForm: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+        user_id: '',
+        article_title: '',
+        article_views: 0,
+        article_comment_count: 0,
+        article_like_count: 0,
+        article_date: null,
+        article_content: '',
+        // desc: ''
       },
       rules: {
         name: [
@@ -71,7 +89,11 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          console.log(this.ruleForm)
+          addArticle(this.ruleForm).then(res => {
+            // this.tableData = res.data
+            console.log(res.data, 'ooooooooooooooooooooooo')
+          })
         } else {
           console.log('error submit!!')
           return false

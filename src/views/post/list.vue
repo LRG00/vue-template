@@ -8,7 +8,7 @@
     </el-tabs> -->
     <el-table :data="tableData" style="width: 100%">
       <el-table-column prop="article_title" label="标题"></el-table-column>
-      <el-table-column prop="user_id" label="作者"></el-table-column>
+      <el-table-column prop="user_name" label="作者"></el-table-column>
       <el-table-column prop="article_id" label="状态"></el-table-column>
       <el-table-column prop="article_date" label="创建时间"></el-table-column>
       <el-table-column prop="address" label="操作">
@@ -35,6 +35,7 @@ export default {
     getPostList () {
       getList().then(res => {
         this.tableData = res.data
+        console.log(res.data)
       })
     },
     handleClick(tab, event) {
