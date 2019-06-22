@@ -42,6 +42,7 @@ class Axios {
             router.replace({
               path: '/login'
             })
+            message.error(error.data.msg)
             return error
           }
         }
