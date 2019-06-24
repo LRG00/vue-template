@@ -36,13 +36,14 @@ class Axios {
         return response.data
       },
       error => {
+        console.log(error.response, 'pp')
         if (error.response) {
           const { status } = error.response
           if (status === 401) {
+            alert(error.response.data + 'token过期请重新登录')
             router.replace({
               path: '/login'
             })
-            message.error(error.data.msg)
             return error
           }
         }

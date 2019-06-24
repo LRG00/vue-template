@@ -72,7 +72,7 @@ module.exports = {
     proxy: {
       // 设置代理
       api: {
-        target: 'http://localhost:3000', // 本地地址
+        target: 'http://149.28.161.52:3000', // 本地地址
         // target: "http://xinhua.xinqixinxikeji.com:8080", //线上地址
         // target: "http://152.12.12.171:8080", //新华
         changeOrigin: true,

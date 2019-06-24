@@ -21,7 +21,7 @@
   </el-card>
 </template>
 <script>
-import { getList } from '@/api/tag'
+import { getList } from '@/api/cate'
 export default {
   data() {
     return {
