@@ -1,7 +1,7 @@
 const path = require("path");
 // const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
-// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
-//   .BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 const CompressionPlugin = require("compression-webpack-plugin");
 
 const cdn = {
@@ -45,8 +45,7 @@ module.exports = {
       .set("@img", resolve("src/assets/images"))
       .set("@css", resolve("src/assets/styles/css"))
       .set("@scss", resolve("src/assets/styles/scss"));
-    // 生产环境配置
-    // 生产环境注入cdn
+    // 注入cdn
     // config.plugin("html").tap(args => {
     //   args[0].cdn = cdn;
     //   return args;
@@ -60,11 +59,6 @@ module.exports = {
       // 分割代码
       config.optimization.splitChunks({
         chunks: "all"
-      });
-      // 生产环境注入cdn
-      config.plugin("html").tap(args => {
-        args[0].cdn = cdn;
-        return args;
       });
     }
   },
@@ -90,19 +84,8 @@ module.exports = {
           threshold: 1024,
           minRatio: 0.8
         }),
-        // new BundleAnalyzerPlugin(),
-        // new UglifyJsPlugin({
-        //   uglifyOptions: {
-        //     compress: {
-        //       warnings: false,
-        //       drop_debugger: true,
-        //       drop_console: true
-        //     }
-        //   },
-        //   sourceMap: false,
-        //   parallel: true
-        // })
-      );
+        new BundleAnalyzerPlugin()
+      )
     } else {
       // 为开发环境修改配置...
       config.externals = {
@@ -112,7 +95,7 @@ module.exports = {
         // axios: "axios",
         // echarts: "echarts",
         // moment: "moment"
-      };
+      }
     }
   },
   // 生产环境是否生成 sourceMap 文件
@@ -130,10 +113,10 @@ module.exports = {
   },
   // use thread-loader for babel & TS in production build
   // enabled by default if the machine has more than 1 cores
-  parallel: require("os").cpus().length > 1,
+  parallel: require('os').cpus().length > 1,
   devServer: {
-    open: process.platform === "darwin",
-    host: "0.0.0.0",
+    open: process.platform === 'darwin',
+    host: '0.0.0.0',
     port: 9000,
     https: false,
     hotOnly: false,
@@ -143,7 +126,7 @@ module.exports = {
         target: "http://localhost:3000", // 本地地址
         // target: "http://xinhua.xinqixinxikeji.com:8080", //线上地址
         // target: "http://152.12.12.171:8080", //新华
-        changeOrigin: true,
+        changeOrigin: false,
         pathRewrite: {
           "^/api": "/"
         }

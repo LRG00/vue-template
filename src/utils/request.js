@@ -5,7 +5,7 @@ import { message } from 'element-ui'
 
 // axios 配置
 axios.defaults.timeout = 5000
-axios.defaults.withCredentials = true
+axios.defaults.withCredentials = false
 
 class Axios {
   constructor (baseUrl) {
