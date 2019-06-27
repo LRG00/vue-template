@@ -1,11 +1,13 @@
 // 开发地址
 const devRoot = {
-  api: 'http://192.100.7.80:8080'
+  api: 'http://localhost:3000'
 }
 // 测试地址
 const testRoot = {}
 // 线上地址
-const productionRoot = {}
+const productionRoot = {
+  api: 'http://149.28.161.252:3000'
+}
 
 // 图片上传URL
 const UPLOADRoot =
@@ -39,7 +41,7 @@ for (const key in APIRoot) {
         : APIRoot[key]
   }
 }
-
+console.log(APIRoot, 'oooooooooooooooooooooooooooooooooooooooooooo')
 module.exports = {
   APILIST: apilist,
   PHOTOURL: photoUrl

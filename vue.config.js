@@ -1,91 +1,153 @@
+const path = require("path");
+// const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+//   .BundleAnalyzerPlugin;
+const CompressionPlugin = require("compression-webpack-plugin");
+
+const cdn = {
+  css: [],
+  // css: ["https://cdn.jsdelivr.net/npm/ant-design-vue@1.3.8/dist/antd.min.css"],
+  js: [
+    // "https://cdn.jsdelivr.net/npm/ant-design-vue@1.3.8/dist/antd.min.js",
+    // "https://cdn.bootcss.com/axios/0.18.0/axios.min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts.min.js"
+    // "https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
+  ]
+};
+
+const isProduction = process.env.NODE_ENV === "production";
+
+function resolve(dir) {
+  return path.join(__dirname, dir);
+}
+
 module.exports = {
-  // 项目部署的基础路径
-  // 我们默认假设你的应用将会部署在域名的根部，
-  // 比如 https://www.my-app.com/
-  // 如果你的应用时部署在一个子路径下，那么你需要在这里
-  // 指定子路径。比如，如果你的应用部署在
-  // https://www.foobar.com/my-app/
-  // 那么将这个值改为 `/my-app/`
-  publicPath: '/',
-
-  // 将构建好的文件输出到哪里
-  outputDir: 'dist',
-
-  // 放置静态资源的地方 (js/css/img/font/...)
-  assetsDir: '',
-
-  // 是否在保存的时候使用 `eslint-loader` 进行检查。
-  // 有效的值：`ture` | `false` | `"error"`
-  // 当设置为 `"error"` 时，检查出的错误会触发编译失败。
-  lintOnSave: false,
-
-  // 使用带有浏览器内编译器的完整构建版本
-  // 查阅 https://cn.vuejs.org/v2/guide/installation.html#运行时-编译器-vs-只包含运行时
-  runtimeCompiler: false,
-
-  // babel-loader 默认会跳过 node_modules 依赖。
-  // 通过这个选项可以显式转译一个依赖。
-  transpileDependencies: [/* string or regex */],
-
-  // 是否为生产环境构建生成 source map？
-  productionSourceMap: true,
-
-  // 调整内部的 webpack 配置。
-  // 查阅 https://github.com/vuejs/vue-docs-zh-cn/blob/master/vue-cli/webpack.md
-  chainWebpack: () => {},
-  configureWebpack: () => {},
-
-  // CSS 相关选项
+  // 基本路径
+  // publicPath: "./",
+  // 输出文件目录
+  // outputDir: "dist",
+  // 放置生成的静态资源 (js、css、img、fonts) 的 (相对于 outputDir 的) 目录。
+  // assetsDir: "./",
+  // 指定生成的 index.html 的输出路径 (相对于 outputDir)。也可以是一个绝对路径
+  // indexPath: "./",
+  // eslint-loader 是否在保存的时候检查
+  // lintOnSave: true,
+  // webpack配置
+  // see https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
+  chainWebpack: config => {
+    config
+      .entry("index")
+      .add("babel-polyfill")
+      .end();
+    // 配置别名
+    config.resolve.alias
+      .set("@", resolve("src"))
+      .set("@img", resolve("src/assets/images"))
+      .set("@css", resolve("src/assets/styles/css"))
+      .set("@scss", resolve("src/assets/styles/scss"));
+    // 生产环境配置
+    // 生产环境注入cdn
+    // config.plugin("html").tap(args => {
+    //   args[0].cdn = cdn;
+    //   return args;
+    // });
+    if (isProduction) {
+      // 删除预加载
+      config.plugins.delete("preload");
+      config.plugins.delete("prefetch");
+      // 压缩代码
+      config.optimization.minimize(true);
+      // 分割代码
+      config.optimization.splitChunks({
+        chunks: "all"
+      });
+      // 生产环境注入cdn
+      config.plugin("html").tap(args => {
+        args[0].cdn = cdn;
+        return args;
+      });
+    }
+  },
+  configureWebpack: config => {
+    if (isProduction) {
+      // 用cdn方式引入
+      config.externals = {
+        // "ant-design-vue": "ant-design-vue",
+        // "vue-router": "VueRouter",
+        // vue: "Vue",
+        // axios: "axios",
+        echarts: "echarts"
+        // moment: "moment"
+      };
+      // 为生产环境修改配置...
+      config.plugins.push(
+        //生产环境自动删除console
+        new CompressionPlugin({
+          //文件开启Gzip，也可以通过服务端(如：nginx)(https://github.com/webpack-contrib/compression-webpack-plugin)
+          filename: "[path].gz[query]",
+          algorithm: "gzip",
+          test: new RegExp("\\.(" + ["js", "css"].join("|") + ")$"),
+          threshold: 1024,
+          minRatio: 0.8
+        }),
+        // new BundleAnalyzerPlugin(),
+        // new UglifyJsPlugin({
+        //   uglifyOptions: {
+        //     compress: {
+        //       warnings: false,
+        //       drop_debugger: true,
+        //       drop_console: true
+        //     }
+        //   },
+        //   sourceMap: false,
+        //   parallel: true
+        // })
+      );
+    } else {
+      // 为开发环境修改配置...
+      config.externals = {
+        // "ant-design-vue": "ANT",
+        // "vue-router": "VueRouter",
+        // vue: "Vue",
+        // axios: "axios",
+        // echarts: "echarts",
+        // moment: "moment"
+      };
+    }
+  },
+  // 生产环境是否生成 sourceMap 文件
+  productionSourceMap: false,
+  // css相关配置
   css: {
-    // 将组件内的 CSS 提取到一个单独的 CSS 文件 (只用在生产环境中)
-    // 也可以是一个传递给 `extract-text-webpack-plugin` 的选项对象
+    // 是否使用css分离插件 ExtractTextPlugin
     extract: true,
-
-    // 是否开启 CSS source map？
+    // 开启 CSS source maps?
     sourceMap: false,
-
-    // 为预处理器的 loader 传递自定义选项。比如传递给
-    // sass-loader 时，使用 `{ sass: { ... } }`。
+    // css预设器配置项
     loaderOptions: {},
-
-    // 为所有的 CSS 及其预处理文件开启 CSS Modules。
-    // 这个选项不会影响 `*.vue` 文件。
+    // 启用 CSS modules for all css / pre-processor files.
     modules: false
   },
-
-  // 在生产环境下为 Babel 和 TypeScript 使用 `thread-loader`
-  // 在多核机器下会默认开启。
-  parallel: require('os').cpus().length > 1,
-
-  // PWA 插件的选项。
-  // 查阅 https://github.com/vuejs/vue-docs-zh-cn/blob/master/vue-cli-plugin-pwa/README.md
-  pwa: {},
-
-  // 配置 webpack-dev-server 行为。
+  // use thread-loader for babel & TS in production build
+  // enabled by default if the machine has more than 1 cores
+  parallel: require("os").cpus().length > 1,
   devServer: {
-    open: process.platform === 'darwin',
-    host: '0.0.0.0',
-    port: 8080,
+    open: process.platform === "darwin",
+    host: "0.0.0.0",
+    port: 9000,
     https: false,
     hotOnly: false,
-    // 查阅 https://github.com/vuejs/vue-docs-zh-cn/blob/master/vue-cli/cli-service.md#配置代理
     proxy: {
       // 设置代理
       api: {
-        target: 'http://149.28.161.52:3000', // 本地地址
+        target: "http://localhost:3000", // 本地地址
         // target: "http://xinhua.xinqixinxikeji.com:8080", //线上地址
         // target: "http://152.12.12.171:8080", //新华
         changeOrigin: true,
         pathRewrite: {
-          '^/api': '/'
+          "^/api": "/"
         }
       }
-    },
-    before: app => {}
-  },
-
-  // 三方插件的选项
-  pluginOptions: {
-    // ...
+    }
   }
-}
+};

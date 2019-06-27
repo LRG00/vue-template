@@ -51,6 +51,7 @@ class Axios {
     )
   }
 }
+console.log(APILIST.api, 'jjjjjjj')
 export const apiAxios = new Axios(APILIST.api).instance
 export default {
   Axios,
