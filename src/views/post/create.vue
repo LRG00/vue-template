@@ -20,7 +20,7 @@
         <el-date-picker
           v-model="ruleForm.article_date"
           type="date"
-          value-format="yyyy-MM-dd"
+          value-format="yyyy-MM-dd HH:mm:ss"
           placeholder="选择日期">
         </el-date-picker>
       </el-form-item>
@@ -34,21 +34,39 @@
         <el-input type="textarea" v-model="ruleForm.desc"></el-input>
       </el-form-item> -->
       <el-form-item label="正文" prop="article_content">
-        <el-input type="textarea" v-model="ruleForm.article_content"></el-input>
+        <!-- <el-input type="textarea" v-model="ruleForm.article_content"></el-input> -->
+        <div class="editor-container">
+          <el-tag class="tag-title">
+            Basic:
+          </el-tag>
+          <markdown-editor ref="markdownEditor" v-model="ruleForm.article_content" height="300px" />
+        </div>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm('ruleForm')">发布文章</el-button>
         <el-button @click="resetForm('ruleForm')">重置</el-button>
       </el-form-item>
     </el-form>
+        <el-button style="margin-top:80px;" type="primary" icon="el-icon-document" @click="getHtml">
+      Get HTML
+    </el-button>
+    {{html}}
   </el-card>
 </template>
 
 <script>
 import { addArticle } from '@/api/post'
+import MarkdownEditor from '@/components/MarkdownEditor'
+const content = `
+**This is test**
+* vue
+* element
+* webpack
+`
 export default {
   data () {
     return {
+      html: content,
       ruleForm: {
         user_id: '',
         article_title: '',
@@ -85,11 +103,18 @@ export default {
       }
     }
   },
+  components: { MarkdownEditor },
   methods: {
+        getHtml() {
+      this.html = this.$refs.markdownEditor.getHtml()
+      console.log(this.html)
+    },
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           console.log(this.ruleForm)
+          this.ruleForm.article_content = this.html
+          // return
           addArticle(this.ruleForm).then(res => {
             // this.tableData = res.data
             console.log(res.data, 'ooooooooooooooooooooooo')
