@@ -6,7 +6,7 @@ const devRoot = {
 const testRoot = {}
 // 线上地址
 const productionRoot = {
-  api: 'http://149.28.161.252:3000'
+  api: 'http://120.77.239.216:3000'
 }
 
 // 图片上传URL
