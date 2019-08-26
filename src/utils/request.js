@@ -1,59 +1,67 @@
+import Vue from 'vue'
 import axios from 'axios'
-import { APILIST } from './config'
-import router from '../router'
-import { message } from 'element-ui'
+import store from '@/store'
+import notification from 'ant-design-vue/es/notification'
+import { VueAxios } from './axios'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
 
-// axios 配置
-axios.defaults.timeout = 5000
-axios.defaults.withCredentials = false
+// 创建 axios 实例
+const service = axios.create({
+  // baseURL: 'http://192.100.7.63:8085', // api base_url
+  baseURL: process.env.VUE_APP_API_BASE_URL, // api base_url
+  timeout: 6000 // 请求超时时间
+})
 
-class Axios {
-  constructor (baseUrl) {
-    this.instance = null
-    this.init(baseUrl)
-  }
-
-  init (baseUrl) {
-    this.instance = axios.create({
-      baseURL: baseUrl
-    })
-    // http request 拦截器
-    this.instance.interceptors.request.use(config => {
-      const token = localStorage.getItem('token')
-      config.headers.common['Authorization'] = 'Bearer ' + token
-      return config
-    })
-
-    // http response 拦截器
-    this.instance.interceptors.response.use(
-      response => {
-        if (response.data.status === '401') {
-          router.replace({
-            path: '/login'
-          })
-          return message.error(response.data.msg)
-        }
-        return response.data
-      },
-      error => {
-        console.log(error.response, 'pp')
-        if (error.response) {
-          const { status } = error.response
-          if (status === 401) {
-            alert(error.response.data + 'token过期请重新登录')
-            router.replace({
-              path: '/login'
-            })
-            return error
-          }
-        }
+const err = (error) => {
+  if (error.response) {
+    const data = error.response.data
+    const token = Vue.ls.get(ACCESS_TOKEN)
+    if (error.response.status === 403) {
+      notification.error({
+        message: 'Forbidden',
+        description: data.message
+      })
+    }
+    if (error.response.status === 401 && !(data.result && data.result.isLogin)) {
+      notification.error({
+        message: 'Unauthorized',
+        description: 'Authorization verification failed'
+      })
+      console.log(token)
+      if (token) {
+        store.dispatch('Logout').then(() => {
+          setTimeout(() => {
+            window.location.reload()
+          }, 1500)
+        })
       }
-    )
+    }
+  }
+  return Promise.reject(error)
+}
+
+// request interceptor
+service.interceptors.request.use(config => {
+  const token = Vue.ls.get(ACCESS_TOKEN)
+  if (token) {
+    config.headers['token'] = token // 让每个请求携带自定义 token 请根据实际情况自行修改
+  }
+  return config
+}, err)
+
+// response interceptor
+service.interceptors.response.use((response) => {
+  return response.data
+}, err)
+
+const installer = {
+  vm: {},
+  install (Vue) {
+    Vue.use(VueAxios, service)
   }
 }
-console.log(APILIST.api, 'jjjjjjj')
-export const apiAxios = new Axios(APILIST.api).instance
-export default {
-  Axios,
-  apiAxios
+
+export {
+  installer as VueAxios,
+  service as axios
 }

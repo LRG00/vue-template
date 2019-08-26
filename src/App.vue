@@ -1,26 +1,29 @@
 <template>
-  <div id="app">
-    <router-view/>
-  </div>
+  <a-locale-provider :locale="locale">
+    <div id="app">
+      <router-view/>
+    </div>
+  </a-locale-provider>
 </template>
+
 <script>
-import { mapState, mapMutations } from 'vuex'
+import zhCN from 'ant-design-vue/lib/locale-provider/zh_CN'
+import { AppDeviceEnquire } from '@/utils/mixin'
 
 export default {
-  computed: mapState({
-    count: state => state.a.count
-  }),
-  mounted () {
-    // this.$store.dispatch(ADD);
-    // console.log(this.$store)
+  mixins: [AppDeviceEnquire],
+  data () {
+    return {
+      locale: zhCN
+    }
   },
-  methods: {
-    ...mapMutations({
-      add: 'ADD' // 将 `this.add()` 映射为 `this.$store.commit('increment')`
-    })
+  mounted () {
+
   }
 }
 </script>
-
-<style lang="scss">
+<style>
+  #app {
+    height: 100%;
+  }
 </style>
