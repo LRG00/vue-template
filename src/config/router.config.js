@@ -34,7 +34,7 @@ export const asyncRouterMap = [
             name: 'map',
             component: () => import('@/views/dashboard/Map'),
             meta: { title: '地图', keepAlive: true, permission: [ 'dashboard' ] }
-          },
+          }
           // {
           //   path: '/dashboard/workplace',
           //   name: 'Workplace',
@@ -128,64 +128,22 @@ export const asyncRouterMap = [
       //     }
       //   ]
       // },
-      // // 系统管理
-      // {
-      //   path: '/system',
-      //   name: 'system',
-      //   component: RouteView,
-      //   redirect: '/system/system-menu',
-      //   meta: { title: '系统管理', icon: 'table', permission: [ 'table' ] },
-      //   children: [
-      //     {
-      //       path: '/system/system-menu',
-      //       name: 'systemMenu',
-      //       component: () => import('@/views/system/menu'),
-      //       meta: { title: '菜单管理', keepAlive: true }
-      //     },
-      //     {
-      //       path: '/system/system-unit',
-      //       name: 'systemUnit',
-      //       component: () => import('@/views/system/unit'),
-      //       meta: { title: '单位管理', keepAlive: true }
-      //     },
-      //     {
-      //       path: '/system/system-role',
-      //       name: 'systemRole',
-      //       component: () => import('@/views/system/role'),
-      //       meta: { title: '角色管理', keepAlive: true }
-      //     },
-      //     {
-      //       path: '/system/system-user',
-      //       name: 'systemUser',
-      //       component: () => import('@/views/system/user'),
-      //       meta: { title: '用户管理', keepAlive: true }
-      //     },
-      //     {
-      //       path: '/system/system-dict',
-      //       name: 'systemDict',
-      //       component: () => import('@/views/system/dict'),
-      //       meta: { title: '数据字典', keepAlive: true }
-      //     },
-      //     {
-      //       path: '/system/system-message',
-      //       name: 'systemMessage',
-      //       component: () => import('@/views/system/message'),
-      //       meta: { title: '短信配置', keepAlive: true }
-      //     },
-      //     {
-      //       path: '/system/system-org',
-      //       name: 'systemOrg',
-      //       component: () => import('@/views/system/org'),
-      //       meta: { title: '部门管理', keepAlive: true }
-      //     },
-      //     {
-      //       path: '/system/system-schedule',
-      //       name: 'systemSchedule',
-      //       component: () => import('@/views/system/schedule'),
-      //       meta: { title: '定时任务', keepAlive: true }
-      //     }
-      //   ]
-      // }
+      // 系统管理
+      {
+        path: '/post',
+        name: 'post',
+        component: RouteView,
+        redirect: '/post/post',
+        meta: { title: '文章管理', icon: 'table', permission: [ 'table' ] },
+        children: [
+          {
+            path: '/post/post',
+            name: 'postMenu',
+            component: () => import('@/views/post/post'),
+            meta: { title: '文章列表', keepAlive: true }
+          }
+        ]
+      }
 
       // // profile
       // {

@@ -1,4 +1,4 @@
-import { axios } from '@/utils/req'
+import { axios } from '@/utils/request'
 import axiosAPI from 'axios'
 
 /**
@@ -23,9 +23,9 @@ class Sys {
       }
     })
   }
-  unitAddOrUpdate (AddOrUpdate, parameter) {
+  postAddOrUpdate (AddOrUpdate, parameter) {
     return axios({
-      url: '/sys/unit/' + AddOrUpdate,
+      url: '/post/' + AddOrUpdate,
       method: 'post',
       data: parameter,
       headers: {
@@ -95,6 +95,16 @@ class Sys {
   getUnitList (parameter) {
     return axios({
       url: '/sys/unit/list',
+      params: parameter,
+      method: 'get',
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8'
+      }
+    })
+  }
+  getPostList (parameter) {
+    return axios({
+      url: '/post/list',
       params: parameter,
       method: 'get',
       headers: {
