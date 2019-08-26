@@ -57,8 +57,8 @@ const vueConfig = {
     // If you want to turn on the proxy, please remove the mockjs /src/main.jsL11
     proxy: {
       api: {
-        // target: 'http://120.77.239.216:3000', // 本地地址
-        target: 'http://localhost:3000', // 本地地址
+        target: 'http://120.77.239.216:3000', // 本地地址
+        // target: 'http://localhost:3000', // 本地地址
         changeOrigin: false,
         pathRewrite: {
           '^/api': '/'
