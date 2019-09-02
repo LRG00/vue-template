@@ -85,11 +85,11 @@ export default {
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
         const { pageNo, pageSize } = parameter
-        return this.$api.sys.getPostList(Object.assign({ page: pageNo, limit: pageSize }, this.queryParam))
+        return this.$api.sys.getPostList(Object.assign({ pageNo, pageSize }, this.queryParam))
           .then(res => {
             console.log(res, 'asd')
-            const { currPage, pageSize, totalCount, totalPage, result } = res.data
-            return { data: result, pageNo: currPage, pageSize, totalCount, totalPage }
+            const { data, pageNo, pageSize, totalCount, totalPage } = res
+            return { data, pageNo, pageSize, totalCount, totalPage }
           })
       },
       // custom table alert & rowSelection
