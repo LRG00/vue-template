@@ -26,7 +26,7 @@ module.exports = (env, argv) => {
       filename: "[name].[hash:5].bundle.js"
     },
     devServer: {
-      port: 4001,
+      port: 4000,
       open: true,
       proxy: {
         "/api": {

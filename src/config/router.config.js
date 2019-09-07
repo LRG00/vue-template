@@ -6,24 +6,52 @@ import { UserLayout, RouteView } from '@/layouts'
 
 export const constantRouterMap = [
   {
-    path: '/dashboard',
-    name: 'dashboard',
-    redirect: '/dashboard/map',
+    path: '/',
+    name: 'index',
+    redirect: '/user/login',
     component: RouteView,
     // meta: { title: '仪表盘', keepAlive: true, icon: bxAnaalyse, permission: [ 'dashboard' ] },
     children: [
-      // 外部链接
       {
-        // path: 'https://www.baidu.com/',
-        // name: 'Monitor',
-        // meta: { title: '监控页（外部）', target: '_blank' }
-        path: 'map',
-        name: 'map',
-        component: () => import('@/views/dashboard/Map.vue'),
-        // meta: { title: '地图', keepAlive: true, permission: [ 'dashboard' ] }
-      }
+        path: '/dashboard',
+        name: 'dashboard',
+        redirect: '/dashboard/map',
+        component: RouteView,
+        // meta: { title: '仪表盘', keepAlive: true, icon: bxAnaalyse, permission: [ 'dashboard' ] },
+        children: [
+          // 外部链接
+          {
+            // path: 'https://www.baidu.com/',
+            // name: 'Monitor',
+            // meta: { title: '监控页（外部）', target: '_blank' }
+            path: 'map',
+            name: 'map',
+            component: () => import('@/views/dashboard/Map.vue'),
+            // meta: { title: '地图', keepAlive: true, permission: [ 'dashboard' ] }
+          }
+        ]
+      },
     ]
   },
+  // {
+  //   path: '/dashboard',
+  //   name: 'dashboard',
+  //   redirect: '/dashboard/map',
+  //   component: RouteView,
+  //   // meta: { title: '仪表盘', keepAlive: true, icon: bxAnaalyse, permission: [ 'dashboard' ] },
+  //   children: [
+  //     // 外部链接
+  //     {
+  //       // path: 'https://www.baidu.com/',
+  //       // name: 'Monitor',
+  //       // meta: { title: '监控页（外部）', target: '_blank' }
+  //       path: 'map',
+  //       name: 'map',
+  //       component: () => import('@/views/dashboard/Map.vue'),
+  //       // meta: { title: '地图', keepAlive: true, permission: [ 'dashboard' ] }
+  //     }
+  //   ]
+  // },
   {
     path: '/user',
     name: 'user',
