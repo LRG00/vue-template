@@ -2,7 +2,7 @@
  * 基础路由
  * @type { *[] }
  */
-import { UserLayout, RouteView } from '@/layouts'
+import { UserLayout, RouteView, BasicLayout } from '@/layouts'
 
 export const constantRouterMap = [
   {
@@ -16,7 +16,7 @@ export const constantRouterMap = [
         path: '/dashboard',
         name: 'dashboard',
         redirect: '/dashboard/map',
-        component: RouteView,
+        component: BasicLayout,
         // meta: { title: '仪表盘', keepAlive: true, icon: bxAnaalyse, permission: [ 'dashboard' ] },
         children: [
           // 外部链接
@@ -27,6 +27,15 @@ export const constantRouterMap = [
             path: 'map',
             name: 'map',
             component: () => import('@/views/dashboard/Map.vue'),
+            // meta: { title: '地图', keepAlive: true, permission: [ 'dashboard' ] }
+          },
+          {
+            // path: 'https://www.baidu.com/',
+            // name: 'Monitor',
+            // meta: { title: '监控页（外部）', target: '_blank' }
+            path: 'post',
+            name: 'post',
+            component: () => import('@/views/dashboard/post.vue'),
             // meta: { title: '地图', keepAlive: true, permission: [ 'dashboard' ] }
           }
         ]
