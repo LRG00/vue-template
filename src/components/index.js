@@ -21,6 +21,7 @@
 // import Tree from '@/components/Tree/Tree'
 // import Trend from '@/components/Trend'
 import STable from '@/components/Table'
+import Tinymce from '@/components/Tinymce'
 // import MultiTab from '@/components/MultiTab'
 // import Result from '@/components/Result'
 // import IconSelector from '@/components/IconSelector'
@@ -52,6 +53,7 @@ export {
   // DescriptionList as DetailList,
   // Tree,
   STable,
+  Tinymce,
   // MultiTab,
   // Result,
   // ExceptionPage,
