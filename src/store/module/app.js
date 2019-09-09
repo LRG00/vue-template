@@ -29,7 +29,7 @@ const actions = {
   async initUserInfo({ commit }) {
     let data = {
       name: "Jack Ma",
-      authMenuKeys: ["home", "demo", "analysis", "search"]
+      authMenuKeys: ["home", "demo", "analysis", "search", "post"]
     }
     // let data = await queryUserInfo()
 

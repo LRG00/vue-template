@@ -14,6 +14,12 @@ const initMenuData = [
     path: 'demo/list'
   },
   {
+    name: 'post',
+    key: 'post',
+    icon: 'table',
+    path: 'post'
+  },
+  {
     name: 'dashboard',
     icon: 'table',
     path: 'dashboard',

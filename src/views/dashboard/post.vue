@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { STable } from '@/components'
+import { STable } from '@/components/Table'
 import CreateForm from './post-add-or-update'
 export default {
   name: 'Unit',

@@ -25,6 +25,9 @@ const initRoute = {
   "/search": {
     component: () => import('../views/list/search.vue')
   },
+  "/post": {
+    component: () => import('../views/dashboard/post.vue')
+  },
   "/search/articles": {
     component: () => import('../views/list/articles.vue')
   },
