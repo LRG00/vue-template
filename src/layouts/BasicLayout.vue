@@ -17,8 +17,8 @@
         </a-menu-item>
         <a-menu-item key="3">
           <a-icon type="upload" />
-          <router-link :to="{ name: 'post' }">
-            <span>文章管理</span>
+          <router-link style="color:#fff" :to="{ name: 'post' }">
+            文章管理
           </router-link>
         </a-menu-item>
       </a-menu>

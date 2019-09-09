@@ -49,7 +49,7 @@
           :labelCol="labelCol"
           :wrapperCol="wrapperCol"
         >
-          <a-date-picker v-decorator="['article_date', { initialValue: this.moment(dataForm.article_date, 'YYYY/MM/DD'), rules: [{required: true, message: '日期'}]}]" />
+          <a-date-picker v-decorator="['article_date', { initialValue: dataForm.article_date ? this.moment(dataForm.article_date, 'YYYY/MM/DD') : null, rules: [{required: true, message: '日期'}]}]" />
         </a-form-item>
         <a-form-item
           label="正文"
@@ -101,7 +101,6 @@ export default {
   },
   methods: {
     add (record) {
-      console.log( this.moment(record.article_date, '2015/01/01')  )
       this.dataForm = record || {}
       this.visible = true
     },

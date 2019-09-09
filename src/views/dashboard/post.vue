@@ -4,15 +4,15 @@
       <a-form layout="inline">
         <a-row :gutter="24">
           <a-col :md="8" :sm="24">
-            <a-form-item label="">
+            <a-form-item class="item-title" label="">
               <a-input v-model="queryParam.article_title" placeholder="标题"/>
             </a-form-item>
           </a-col>
           <a-col :md="8" :sm="24">
-            <span>
+            <a-form-item>
               <a-button type="primary" @click="$refs.table.refresh(true)">查询</a-button>
               <a-button style="margin-left: 8px" @click="() => queryParam = {}">重置</a-button>
-            </span>
+            </a-form-item>
           </a-col>
           <a-form-item style="float:right;margin-right:10px">
             <a-button style="margin-left: 8px" type="primary" icon="plus" @click="$refs.createModal.add()">新建</a-button>
@@ -135,6 +135,11 @@ export default {
 }
 </script>
 <style lang="less">
-// .unit-card {
-// }
+.table-page-search-wrapper {
+  margin-bottom: 20px;
+  .item-title,.ant-form-item-control-wrapper {
+    width: 100%
+  }
+}
+
 </style>

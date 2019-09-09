@@ -7,7 +7,7 @@ import { VueAxios } from './axios'
 
 // 创建 axios 实例
 const service = axios.create({
-  baseURL: '/api', // api base_url
+  baseURL: 'http://120.77.239.216:3000', // api base_url
   timeout: 6000 // 请求超时时间
 })
 
