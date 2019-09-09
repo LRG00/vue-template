@@ -15,7 +15,7 @@ export const constantRouterMap = [
       {
         path: '/dashboard',
         name: 'dashboard',
-        redirect: '/dashboard/map',
+        redirect: '/dashboard/post',
         component: BasicLayout,
         // meta: { title: '仪表盘', keepAlive: true, icon: bxAnaalyse, permission: [ 'dashboard' ] },
         children: [

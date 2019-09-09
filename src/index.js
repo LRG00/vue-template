@@ -1,7 +1,8 @@
 import Vue from "vue";
 import App from "./app.vue";
-import '@/core/index.js'
-import router from '@/router/index.js'
+import '@/core'
+import router from '@/router'
+import store from './store'
 import api from '@/api/index'
 import { VueAxios } from '@/utils/request'
 
@@ -11,6 +12,7 @@ Vue.use(VueAxios)
 
 new Vue({
   router,
+  store,
   el: "#app",
   template: "<App/>",
   render: h => h(App)
