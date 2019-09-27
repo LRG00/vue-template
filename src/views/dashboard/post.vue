@@ -45,10 +45,10 @@
 </template>
 
 <script>
-import { STable } from '@/components/Table'
+import STable from '@/components/Table'
 import CreateForm from './post-add-or-update'
 export default {
-  name: 'Unit',
+  name: 'post',
   components: {
     STable,
     CreateForm

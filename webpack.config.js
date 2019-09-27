@@ -20,10 +20,10 @@ module.exports = (env, argv) => {
   const devMode = argv.mode === 'development';
   return smp.wrap({
     entry: "./src/index.js",
-  
     output: {
       path: path.resolve(__dirname, "dist"),
-      filename: "[name].[hash:5].bundle.js"
+      filename: "[name].[chunkhash].js",
+      chunkFilename: "[name].[chunkhash].js"
     },
     devServer: {
       port: 4010,
