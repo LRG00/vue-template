@@ -1,12 +1,18 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
-import app from './module/app'
+import home from "./home.module";
+import auth from "./auth.module";
+import article from "./article.module";
+import profile from "./profile.module";
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
-    app
+    home,
+    auth,
+    article,
+    profile
   }
-})
+});

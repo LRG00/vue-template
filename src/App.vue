@@ -1,23 +1,22 @@
 <template>
-    <div>
-      <a-locale-provider :locale="zh_CN">
-        <router-view/>
-      </a-locale-provider>
-    </div>
+  <div id="app">
+    <RwvHeader />
+    <router-view></router-view>
+    <RwvFooter />
+  </div>
 </template>
-<script>
-import zh_CN from 'ant-design-vue/lib/locale-provider/zh_CN';
-import moment from 'moment';
-import 'moment/locale/zh-cn';
 
-moment.locale('zh-cn');
+<script>
+import RwvHeader from "@/components/TheHeader";
+import RwvFooter from "@/components/TheFooter";
+
 export default {
-  data() {
-    return {
-      zh_CN,
-    }
+  name: "App",
+  components: {
+    RwvHeader,
+    RwvFooter
   }
-}
+};
 </script>
-<style>
-</style>
+
+<style></style>
