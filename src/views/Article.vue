@@ -1,3 +1,10 @@
+<!--
+ * @Author: liruigang
+ * @Date: 2019-09-28 17:12:45
+ * @LastEditors: liruigang
+ * @LastEditTime: 2019-09-28 17:12:45
+ * @UI: 
+ -->
 <template>
   <div class="article-page">
     <div class="banner">

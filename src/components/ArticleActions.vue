@@ -2,7 +2,7 @@
  * @Author: liruigang
  * @Date: 2019-09-27 21:28:58
  * @LastEditors: liruigang
- * @LastEditTime: 2019-09-27 21:28:58
+ * @LastEditTime: 2019-09-30 08:23:32
  * @UI: 
  -->
 <template>
@@ -71,7 +71,7 @@ export default {
       return this.article.favorited ? "Unfavorite Article" : "Favorite Article";
     },
     favoriteCounter() {
-      return `(${this.article.favoritesCount})`;
+      return `(${this.article.favoriteCount})`;
     }
   },
   methods: {
