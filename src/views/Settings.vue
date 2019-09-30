@@ -80,7 +80,6 @@ export default {
   },
   methods: {
     updateSettings() {
-      console.log("ccc");
       this.$store.dispatch(UPDATE_USER, this.currentUser).then(() => {
         // #todo, nice toast and no redirect
         this.$router.push({ name: "home" });

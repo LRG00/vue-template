@@ -63,7 +63,7 @@ export const actions = {
     return data.comments;
   },
   async [COMMENT_CREATE](context, payload) {
-    await CommentsService.post(payload.slug, payload.comment);
+    await CommentsService.post(payload.slug, payload.comment, payload.author);
     context.dispatch(FETCH_COMMENTS, payload.slug);
   },
   async [COMMENT_DESTROY](context, payload) {

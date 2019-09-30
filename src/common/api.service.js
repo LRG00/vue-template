@@ -85,9 +85,9 @@ export const CommentsService = {
     return ApiService.get("articles", `${slug}/comments`);
   },
 
-  post(slug, payload) {
+  post(slug, payload, author) {
     return ApiService.post(`articles/${slug}/comments`, {
-      comment: { body: payload }
+      comment: { body: payload, author }
     });
   },
 

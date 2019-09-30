@@ -135,7 +135,6 @@ export default {
       this.$store
         .dispatch(action, this.$store.state.auth.user.id)
         .then(({ data }) => {
-          console.log(data, "mmmmm");
           this.inProgress = false;
           this.$router.push({
             name: "article",
