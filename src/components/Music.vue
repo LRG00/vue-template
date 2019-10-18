@@ -56,8 +56,11 @@ export default {
       isPaused: false,
       index: 0,
       currentSong:
-        "http://120.77.239.216:3000/6d1062903834839c5e810d2fd0d6a1e572.mp3",
+        "http://120.77.239.216:3000/55da9f7986a956d4df77183f1583496b.mp3",
       musicList: [
+        {
+          url: "http://120.77.239.216:3000/55da9f7986a956d4df77183f1583496b.mp3"
+        },
         {
           url:
             "http://120.77.239.216:3000/6d1062903834839c5e810d2fd0d6a1e572.mp3"
@@ -68,6 +71,9 @@ export default {
         {
           url:
             "http://120.77.239.216:3000/66c457beca26a87e47feec6108af50d00.mp3"
+        },
+        {
+          url: "http://120.77.239.216:3000/6a05cf9e9a9937aa8f9922757f861140.mp3"
         }
       ]
     };
