@@ -18,7 +18,7 @@
         <div class="col-md-9">
           <div class="feed-toggle">
             <ul class="nav nav-pills outline-active">
-              <li v-if="isAuthenticated" class="nav-item">
+              <!-- <li v-if="isAuthenticated" class="nav-item">
                 <router-link
                   :to="{ name: 'home-my-feed' }"
                   class="nav-link"
@@ -26,7 +26,7 @@
                 >
                   你的发布
                 </router-link>
-              </li>
+              </li> -->
               <li class="nav-item">
                 <router-link
                   :to="{ name: 'home' }"
@@ -34,7 +34,7 @@
                   class="nav-link"
                   active-class="active"
                 >
-                  所有人的发布
+                  文章列表
                 </router-link>
               </li>
               <li class="nav-item" v-if="tag">

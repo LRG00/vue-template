@@ -34,7 +34,7 @@ const actions = {
     commit(FETCH_START);
     return ArticlesService.query(params.type, params.filters)
       .then(({ data }) => {
-        commit(FETCH_END, data);
+        commit(FETCH_END, data.list);
       })
       .catch(error => {
         throw new Error(error);
@@ -56,9 +56,9 @@ const mutations = {
   [FETCH_START](state) {
     state.isLoading = true;
   },
-  [FETCH_END](state, { articles, articlesCount }) {
-    state.articles = articles;
-    state.articlesCount = articlesCount;
+  [FETCH_END](state, list) {
+    state.articles = list;
+    state.articlesCount = list.length;
     state.isLoading = false;
   },
   [SET_TAGS](state, tags) {
