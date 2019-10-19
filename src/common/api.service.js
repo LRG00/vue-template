@@ -1,3 +1,10 @@
+/*
+ * @Author: liruigang
+ * @Date: 2019-10-04 15:12:51
+ * @LastEditors: liruigang
+ * @LastEditTime: 2019-10-18 21:43:07
+ * @UI:
+ */
 import Vue from "vue";
 import axios from "axios";
 import VueAxios from "vue-axios";
@@ -52,6 +59,12 @@ export default ApiService;
 export const TagsService = {
   get() {
     return ApiService.get("tags");
+  }
+};
+
+export const MusicService = {
+  get() {
+    return ApiService.get("music");
   }
 };
 

@@ -1,3 +1,10 @@
+/*
+ * @Author: liruigang
+ * @Date: 2019-10-04 15:12:51
+ * @LastEditors: liruigang
+ * @LastEditTime: 2019-10-04 15:12:51
+ * @UI:
+ */
 export const ARTICLE_PUBLISH = "publishArticle";
 export const ARTICLE_DELETE = "deleteArticle";
 export const ARTICLE_EDIT = "editArticle";
@@ -16,6 +23,7 @@ export const FETCH_PROFILE = "fetchProfile";
 export const FETCH_PROFILE_FOLLOW = "fetchProfileFollow";
 export const FETCH_PROFILE_UNFOLLOW = "fetchProfileUnfollow";
 export const FETCH_TAGS = "fetchTags";
+export const FETCH_MUSICS = "fetchMusics";
 export const LOGIN = "login";
 export const LOGOUT = "logout";
 export const REGISTER = "register";
