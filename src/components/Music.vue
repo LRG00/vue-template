@@ -18,7 +18,7 @@
     >
       <div
         class="m-playbar"
-        style="height:47px;border:1px solid pink;width:1140px;margin:0 auto"
+        style="height:47px;border:1px solid #000;width:1140px;margin:0 auto"
       >
         <div class="btns">
           <a
@@ -27,6 +27,7 @@
             data-action="prev"
             class="prv"
             title="上一首(ctrl+←)"
+            @click="prev"
             >上一首</a
           >
           <a
@@ -34,7 +35,19 @@
             hidefocus="true"
             data-action="play"
             class="ply j-flag"
-            title="播放/暂停(p)"
+            title="播放"
+            v-show="isPaused"
+            @click="playOrPause('play')"
+            >播放/暂停</a
+          >
+          <a
+            href="javascript:;"
+            hidefocus="true"
+            data-action="play"
+            class="pause j-flag"
+            title="暂停"
+            v-show="!isPaused"
+            @click="playOrPause('pause')"
             >播放/暂停</a
           >
           <a
@@ -43,6 +56,7 @@
             data-action="next"
             class="nxt"
             title="下一首(ctrl+→)"
+            @click="next"
             >下一首</a
           >
         </div>
@@ -73,31 +87,30 @@
           </div>
           <div class="m-pbar" data-action="noop">
             <div class="barbg j-flag" id="auto-id-aQTSW8TgDBTeJx7i">
-              <div class="rdy" style="width: 0%;"></div>
-              <div class="cur" style="width: 0%;">
-                <span class="btn f-tdn f-alpha" id="auto-id-awshMO6fM6942G2z"
-                  ><i></i
-                ></span>
+              <div class="rdy">
+                <a-slider
+                  id="test"
+                  style="margin:0"
+                  v-model="ccc"
+                  :defaultValue="defaultValue"
+                />
               </div>
             </div>
-            <span class="j-flag time"><em>00:00</em> / 00:00</span>
+            <span class="j-flag time"
+              ><em>{{ currentTime }}</em> / {{ totalTime }}</span
+            >
           </div>
         </div>
       </div>
-      <div @click="pause">暂停</div>
-      <div @click="play">播放</div>
-      <div>
+      <!-- <div>
         音量设置
         <input type="range" @change="volume" min="1" max="10" />
       </div>
       <div>
         速率设置
         <input type="range" @change="playbackRate" min="1" max="30" />
-      </div>
-      <div @click="prev">上一首</div>
-      <div @click="next">下一首</div>
-
-      <div class="audio-wrapper">
+      </div> -->
+      <div>
         <audio id="myaudio" preload="auto">
           <source
             :src="'http://120.77.239.216:3000/' + currentSong"
@@ -113,30 +126,6 @@
             <a :href="currentSong">下载</a>这个音频文件。
           </p>
         </audio>
-        <div class="audio-left">
-          <img
-            v-show="isPaused"
-            @click="playOrPause('play')"
-            src="./pause.png"
-          />
-          <img
-            v-show="!isPaused"
-            @click="playOrPause('pause')"
-            src="./play.png"
-          />
-        </div>
-        <div class="audio-right">
-          <p style="max-width: 536px;">Beta-B_Kan R. Gao.mp3</p>
-          <div class="progress-bar-bg" id="progressBarBg">
-            <span id="progressDot"></span>
-            <div class="progress-bar" id="progressBar"></div>
-          </div>
-          <div class="audio-time">
-            <span class="audio-length-current" id="audioCurTime"></span>
-            {{ currentTime }}
-            <span class="audio-length-total">{{ totalTime }}</span>
-          </div>
-        </div>
       </div>
     </a-drawer>
   </div>
@@ -148,6 +137,8 @@ import { FETCH_MUSICS } from "@/store/actions.type";
 export default {
   data() {
     return {
+      defaultValue: 0,
+      ccc: 0,
       visible: false,
       placement: "bottom",
       currentTime: "00:00",
@@ -193,8 +184,8 @@ export default {
     },
     updateProgress(audio) {
       let value = audio.currentTime / audio.duration;
-      document.getElementById("progressBar").style.width = value * 100 + "%";
-      document.getElementById("progressDot").style.left = value * 100 + "%";
+      this.ccc = parseInt(value * 100);
+      console.log(parseInt(value * 100), ";;;");
       this.currentTime = this.transTime(audio.currentTime);
       this.totalTime = audio.duration
         ? this.transTime(audio.duration)
@@ -246,7 +237,6 @@ export default {
       if (this.index !== 0) this.index--;
     },
     next() {
-      console.log(this.musics);
       if (this.index < this.musics.length - 1) this.index++;
     },
     showDrawer() {
@@ -262,94 +252,11 @@ export default {
 };
 </script>
 <style>
-.audio-wrapper {
-  background-color: #fcfcfc;
-  margin: 10px auto;
-  max-width: 670px;
-  height: 70px;
-  border: 1px solid #e0e0e0;
-}
-
-.audio-left {
-  float: left;
-  text-align: center;
-  width: 18%;
-  height: 100%;
-}
-
-.audio-left img {
-  width: 40px;
-  position: relative;
-  top: 15px;
-  margin: 0;
-  display: initial; /* 解除与app的样式冲突 */
-  cursor: pointer;
-}
-
-.audio-right {
-  margin-right: 2%;
-  float: right;
-  width: 80%;
-  height: 100%;
-}
-
-.audio-right p {
-  font-size: 15px;
-  height: 35%;
-  margin: 8px 0;
-
-  /* 歌曲名称只显示在一行，超出部分显示为省略号 */
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  max-width: 243px; /* 要适配小屏幕手机，所以最大宽度先设小一点，后面js根据屏幕大小重新设置 */
-}
-
-.progress-bar-bg {
-  background-color: #d9d9d9;
-  position: relative;
-  height: 2px;
-  cursor: pointer;
-}
-
-.progress-bar {
-  background-color: #649fec;
-  width: 0;
-  height: 2px;
-}
-
-.progress-bar-bg span {
-  content: " ";
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  background-color: #3e87e8;
-  position: absolute;
-  left: 0;
-  top: 50%;
-  margin-top: -5px;
-  margin-left: -5px;
-  cursor: pointer;
-}
-
-.audio-time {
-  overflow: hidden;
-  margin-top: -1px;
-}
-
-.audio-length-total {
-  float: right;
-  font-size: 12px;
-}
-
-.audio-length-current {
-  float: left;
-  font-size: 12px;
-}
 .ant-drawer-body {
   background: #313131;
+}
+.ant-drawer-content-wrapper {
+  height: 90px !important;
 }
 .m-playbar .btns,
 .m-playbar .head,
@@ -369,6 +276,13 @@ export default {
   margin-top: 0;
   background: url("../../static/playbar.png") no-repeat 0 9999px;
   background-position: 0 -204px;
+}
+.btns .pause {
+  width: 36px;
+  height: 36px;
+  margin-top: 0;
+  background: url("../../static/playbar.png") no-repeat 0 9999px;
+  background-position: 0 -165px;
 }
 .nxt {
   background: url("../../static/playbar.png") no-repeat 0 9999px;
@@ -447,32 +361,6 @@ export default {
 .m-pbar .rdy,
 .m-pbar .left {
   background: url("../../static/statbar.png") no-repeat 0 9999px;
-  _background-image: url("../../static/statbar_8.png");
-}
-.m-pbar .rdy {
-  width: 0%;
-  background-position: right -30px;
-}
-.m-pbar .cur {
-  width: 0%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1%;
-  background-position: left -66px;
-}
-
-.m-pbar .barbg,
-.m-pbar .cur,
-.m-pbar .rdy {
-  height: 9px;
-  background-position: right 0;
-}
-.m-pbar .barbg,
-.m-pbar .cur,
-.m-pbar .rdy {
-  height: 9px;
-  background-position: right 0;
 }
 .m-pbar .time {
   position: absolute;
@@ -480,6 +368,12 @@ export default {
   right: -84px;
   color: #797979;
   text-shadow: 0 1px 0 #121212;
+}
+.m-pbar .time em {
+  color: #a1a1a1;
+  font-style: normal;
+  text-align: left;
+  font-size: inherit;
 }
 .btns {
   width: 137px;
