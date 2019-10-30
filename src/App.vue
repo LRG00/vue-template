@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <RwvHeader />
-    <Music />
+    <!-- <Music style="position: fixed;top:80px" /> -->
     <router-view></router-view>
     <RwvFooter />
   </div>

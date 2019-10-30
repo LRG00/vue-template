@@ -23,3 +23,8 @@ export default {
   name: "RwvFooter"
 };
 </script>
+<style>
+footer {
+  position: none !important;
+}
+</style>

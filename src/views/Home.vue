@@ -10,7 +10,7 @@
     <div class="banner">
       <div class="container">
         <h1 class="logo-font">leeruigan</h1>
-        <p>全球公告</p>
+        <!-- <p>全球公告</p> -->
       </div>
     </div>
     <div class="container page">
